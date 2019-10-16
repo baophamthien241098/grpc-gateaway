@@ -1,0 +1,36 @@
+syntax = "proto3";
+option go_package = "hello";
+package hello;
+import	"google/api/annotations.proto";
+message GetAccResquest {
+    string id = 1;
+}
+message GetAccResponse{
+    string name = 1;
+    string pass = 2;
+    string phone =3;
+}
+message PostResquest {
+    string name = 1;
+    string pass = 2;
+    string phone =3;
+    
+}
+message PostResponse{
+    string id = 1;
+}
+
+service HelloService {
+
+    rpc Get(GetAccResquest) returns (GetAccResponse){
+        option(google.api.http) = {
+            get:"/get/{id}"
+        };
+    }
+    rpc Post(PostResquest) returns (PostResponse){
+        option(google.api.http) = {
+           post:"/post"
+           body:"*"
+        };
+    }
+}
